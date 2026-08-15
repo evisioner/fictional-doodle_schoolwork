@@ -9,28 +9,46 @@ special=string.punctuation
 store=digits+letters+special
 
 password=[]
+number_of_passwords = 0
+limit=0
+
 while True:
-    limit=int(input())
+    limit=int(input('how characters do you wnat your password to have (4 or more)'))
     if limit < 4:
         print('pls try again')
     else:
         break
 
-password.append(random.choice(lower))
-password.append(random.choice(upper))
-password.append(random.choice(digits))
-password.append(random.choice(special))
+while True:
+    number_of_passwords=int(input('how many passwords do you want to generate'))
+    if number_of_passwords <= 0:
+        ans=input('does this mean u want 0 passwords?')
+        if ans == 'yes':
+            print('uh okay sure')
+            exit(0)
+        else:
+            print('stop messing around and try again')
+    else:
+        break
 
-for i in range((limit-4)):
-    password.append(random.choice(store))
+for i in range(number_of_passwords):
+    password.append(random.choice(lower))
+    password.append(random.choice(upper))
+    password.append(random.choice(digits))
+    password.append(random.choice(special))
 
-random.shuffle(password)
+    for o in range(limit):
+        password.append(random.choice(store))
 
-print('your password is:', ''.join(password))
+    random.shuffle(password)
 
-if len(password) < 8:
+    print(f'your {i+1}(st/nd/rd/th) password is:', ''.join(password))
+    
+    password=[] #resets the password for next loop :3
+
+if limit < 8:
     print('this password is weak')
-elif len(password) >= 8 and len(password) < 12:
+elif limit >= 8 and limit < 12:
     print('this password is medium')
 else:
     print('this password is strong')
